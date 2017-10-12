@@ -180,6 +180,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeyFrames: []
+  Replay: C:\Users\jmiles3\Desktop\Unity\JMilesReplaySystem\JMiles Replay System\Assets\Generated\Replays\Thursday,
+    12 October 2017.txt
+  StartTimeDisplay: 0
+  Recording: 1
 --- !u!4 &1254959608
 Transform:
   m_ObjectHideFlags: 0

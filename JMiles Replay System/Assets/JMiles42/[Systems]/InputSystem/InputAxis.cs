@@ -25,6 +25,7 @@ namespace JMiles42.Systems.InputManager {
 		[SerializeField] private float m_Value;
 		public bool ValueInverted;
 		public bool KeyDown = false;
+		public KeyPosition KeyPos = KeyPosition.Up;
 		public Action onKeyDown;
 		public Action onKeyUp;
 		public Action onKeyPositiveDown;
@@ -33,6 +34,13 @@ namespace JMiles42.Systems.InputManager {
 		public Action onKeyNegativeUp;
 		public Action onKeyNoValue;
 		public Action<float> onKey;
+
+		public enum KeyPosition {
+			Up,
+			Down,
+			Held,
+			None
+		}
 
 		public InputAxis(string axis, bool invert = false) {
 			Axis = UnityAxis = axis;
@@ -52,7 +60,18 @@ namespace JMiles42.Systems.InputManager {
 			onKeyUp += () => KeyDown = false;
 		}
 
-		public void UpdateData() { m_Value = Input.GetAxis(UnityAxis); }
+		public void UpdateData() {
+			m_Value = Input.GetAxis(UnityAxis);
+			if (Input.GetButtonUp(Axis)) {
+				KeyPos = KeyPosition.Up;
+			}
+			else if (Input.GetButtonDown(Axis)) {
+				KeyPos = KeyPosition.Down;
+			}
+			else if (Input.GetButton(Axis)) {
+				KeyPos = KeyPosition.Held;
+			}
+		}
 
 		public static implicit operator float(InputAxis fp) { return fp.Value; }
 
@@ -68,7 +87,7 @@ namespace JMiles42.Systems.InputManager {
 		public bool InputInDeadZone(float deadZone = 0.05f) { return Math.Abs(Value) > deadZone; }
 
 		public static void DoInput(InputAxis key, float deadZone = 0.05f) {
-			if (Input.GetButtonUp(key)) {
+			if (key.KeyPos == KeyPosition.Up) {
 				key.onKeyUp.Trigger();
 
 				if (key.Value > 0)
@@ -76,7 +95,7 @@ namespace JMiles42.Systems.InputManager {
 				else if (key.Value < 0)
 					key.onKeyNegativeUp.Trigger();
 			}
-			else if (Input.GetButtonDown(key)) {
+			else if (key.KeyPos == KeyPosition.Down) {
 				key.onKeyDown.Trigger();
 
 				if (key.Value > 0)
@@ -87,7 +106,9 @@ namespace JMiles42.Systems.InputManager {
 			else if (Math.Abs(key.Value) > deadZone && !key.OnlyButton) {
 				key.onKey.Trigger(key.Value);
 				key.onKeyNoValue.Trigger();
+				return;
 			}
+			key.KeyPos = KeyPosition.None;
 		}
 	}
 }

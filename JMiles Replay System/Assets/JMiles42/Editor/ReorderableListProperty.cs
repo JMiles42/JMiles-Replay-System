@@ -68,24 +68,50 @@ public class ReorderableListProperty
 			List.elementHeight = rect.height - 4f;
 	}
 
-	public void HandleDrawing() {
-		if (Property.isExpanded) {
+	public void HandleDrawing()
+	{
+		if (Property.isExpanded)
+		{
 			List.DoLayoutList();
 		}
 		else
-			Property.isExpanded = EditorGUILayout.ToggleLeft(
-															 string.Format("{0}\t[{1}]", Property.displayName, Property.arraySize),
+			Property.isExpanded = EditorGUILayout.ToggleLeft(string.Format("{0}\t[{1}]", Property.displayName, Property.arraySize),
 															 Property.isExpanded,
 															 Property.prefabOverride? EditorStyles.boldLabel : GUIStyle.none);
 	}
 
-	public void HandleDrawing(string name) {
-		if (Property.isExpanded) {
+	public void HandleDrawing(string name)
+	{
+		if (Property.isExpanded)
+		{
 			List.DoLayoutList();
 		}
 		else
-			Property.isExpanded = EditorGUILayout.ToggleLeft(
-															 string.Format("{0}\t[{1}]", name, Property.arraySize),
+			Property.isExpanded = EditorGUILayout.ToggleLeft(string.Format("{0}\t[{1}]", name, Property.arraySize),
+															 Property.isExpanded,
+															 Property.prefabOverride? EditorStyles.boldLabel : GUIStyle.none);
+	}
+
+	public void HandleDrawing(Rect rect)
+	{
+		if (Property.isExpanded)
+		{
+			List.DoList(rect);
+		}
+		else
+			Property.isExpanded = EditorGUI.ToggleLeft(rect,string.Format("{0}\t[{1}]", Property.displayName, Property.arraySize),
+															 Property.isExpanded,
+															 Property.prefabOverride? EditorStyles.boldLabel : GUIStyle.none);
+	}
+
+	public void HandleDrawing(Rect rect, string name)
+	{
+		if (Property.isExpanded)
+		{
+			List.DoList(rect);
+		}
+		else
+			Property.isExpanded = EditorGUI.ToggleLeft(rect,string.Format("{0}\t[{1}]", name, Property.arraySize),
 															 Property.isExpanded,
 															 Property.prefabOverride? EditorStyles.boldLabel : GUIStyle.none);
 	}
