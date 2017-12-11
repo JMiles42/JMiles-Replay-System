@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ReplayAble {
+namespace ReplayAble
+{
 	[Serializable]
-	public class KeyframeSavedData {
+	public class KeyframeSavedData
+	{
 		public List<KeyframeBase> Keyframes;
 	}
 }

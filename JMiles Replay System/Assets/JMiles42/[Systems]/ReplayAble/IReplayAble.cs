@@ -1,3 +1,7 @@
-﻿namespace ReplayAble {
-	public class IReplayAble {}
+﻿namespace ReplayAble
+{
+	public interface IReplayAble
+	{
+		void Replay();
+	}
 }

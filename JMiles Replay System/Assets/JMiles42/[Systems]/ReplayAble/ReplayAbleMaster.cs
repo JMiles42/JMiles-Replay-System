@@ -5,41 +5,51 @@ using JMiles42.Extensions;
 using JMiles42.Generics;
 using UnityEngine;
 
-namespace ReplayAble {
-	public class ReplayAbleMaster: Singleton<ReplayAbleMaster> {
-		[NoFoldout] public List<KeyframeBase> KeyFrames = new List<KeyframeBase>();
+namespace ReplayAble
+{
+	public class ReplayAbleMaster: Singleton<ReplayAbleMaster>
+	{
+		[NoFoldout]
+		public List<KeyframeBase> KeyFrames = new List<KeyframeBase>();
 
-		public string Replay;
+		[Tooltip("The Filepath to the Replay File")]
+		public string ReplayFilepath;
 
 		public float StartTimeDisplay;
 		public static float StartTime;
 
 		public bool Recording = true;
 
-		void Start() {
+		void Start()
+		{
 			StartTime = StartTimeDisplay = Time.timeSinceLevelLoad;
-			if (!Replay.IsNullOrEmpty()) {
+			if(!ReplayFilepath.IsNullOrEmpty())
+			{
 				Recording = false;
 				KeyframeSavedData data;
-				JMiles42.IO.Generic.SavingLoading.LoadGameDataFilepath(Replay, out data, new KeyframeSavedData(), false);
+				JMiles42.IO.Generic.SavingLoading.LoadGameDataFilepath(ReplayFilepath, out data, new KeyframeSavedData(), false);
 				StartCoroutine(PlayBack(data));
 			}
 		}
 
-		public static void AddKeyFrame(KeyframeBase key) {
-			if (!Instance.Recording)
+		public static void AddKeyFrame(KeyframeBase key)
+		{
+			if(!Instance.Recording)
 				return;
 			key.Time = Time.timeSinceLevelLoad - StartTime;
 			Instance.KeyFrames.Add(key);
 		}
 
-		public IEnumerator PlayBack(KeyframeSavedData data) {
-			if (data.IsNull())
+		public IEnumerator PlayBack(KeyframeSavedData data)
+		{
+			if(data.IsNull())
 				yield break;
 			int i = 0;
 			StartTime = StartTimeDisplay = Time.timeSinceLevelLoad;
-			while (true) {
-				if (data.Keyframes.InRange(i)) {
+			while(true)
+			{
+				if(data.Keyframes.InRange(i))
+				{
 					yield return new WaitForSeconds(StartTime - data.Keyframes[i].Time);
 
 					Debug.Log(data.Keyframes[i].ToString());
@@ -47,7 +57,8 @@ namespace ReplayAble {
 					data.Keyframes[i].Replay();
 					++i;
 				}
-				else {
+				else
+				{
 					yield break;
 				}
 			}

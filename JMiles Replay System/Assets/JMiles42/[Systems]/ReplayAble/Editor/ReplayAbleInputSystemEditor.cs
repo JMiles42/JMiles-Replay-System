@@ -1,5 +1,7 @@
 ﻿using JMiles42.Editor;
 
-namespace ReplayAble {
-	public class ReplayAbleInputSystemEditor: CustomEditorBase {}
+namespace ReplayAble
+{
+	public class ReplayAbleInputSystemEditor: CustomEditorBase
+	{ }
 }

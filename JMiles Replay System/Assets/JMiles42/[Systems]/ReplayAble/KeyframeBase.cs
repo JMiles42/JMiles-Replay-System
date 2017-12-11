@@ -1,12 +1,21 @@
 ﻿using System;
 
-namespace ReplayAble {
+namespace ReplayAble
+{
 	[Serializable]
-	public class KeyframeBase {
+	public class KeyframeBase : IReplayAble
+	{
 		public float Time;
 
-		public override string ToString() { return Time.ToString(); }
+		public override string ToString()
+		{
+			return Time.ToString();
+		}
 
-		public virtual void Replay() {}
+		/// <summary>
+		/// Calls the replay logic in the child classes
+		/// </summary>
+		public virtual void Replay()
+		{ }
 	}
 }
