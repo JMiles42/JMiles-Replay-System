@@ -5,18 +5,19 @@ using UnityEngine;
 public class Player: JMilesBehavior, IEventListening
 {
 	public float speed = 0.5f;
+
 	public void OnEnable()
 	{
-		ReplayAble.ReplayAbleInputSystem.Jump.onKeyDown += OnKeyDown;
-		ReplayAble.ReplayAbleInputSystem.Horizontal.onKey += OnHorizontal;
-		ReplayAble.ReplayAbleInputSystem.Vertical.onKey += OnVertical;
+		ReplayAble.ReplayAbleInputSystem.Jump.OnKeyDown += OnKeyDown;
+		ReplayAble.ReplayAbleInputSystem.Horizontal.OnKey += OnHorizontal;
+		ReplayAble.ReplayAbleInputSystem.Vertical.OnKey += OnVertical;
 	}
 
 	public void OnDisable()
 	{
-		ReplayAble.ReplayAbleInputSystem.Jump.onKeyDown -= OnKeyDown;
-		ReplayAble.ReplayAbleInputSystem.Horizontal.onKey -= OnHorizontal;
-		ReplayAble.ReplayAbleInputSystem.Vertical.onKey -= OnVertical;
+		ReplayAble.ReplayAbleInputSystem.Jump.OnKeyDown -= OnKeyDown;
+		ReplayAble.ReplayAbleInputSystem.Horizontal.OnKey -= OnHorizontal;
+		ReplayAble.ReplayAbleInputSystem.Vertical.OnKey -= OnVertical;
 	}
 
 	private void OnKeyDown()
@@ -26,11 +27,11 @@ public class Player: JMilesBehavior, IEventListening
 
 	private void OnHorizontal(float val)
 	{
-		Position += Vector3.forward * val * speed;
+		Position += Vector3.left * val * speed;
 	}
 
 	private void OnVertical(float val)
 	{
-		Position += Vector3.right * val * speed;
+		Position += Vector3.back * val * speed;
 	}
 }

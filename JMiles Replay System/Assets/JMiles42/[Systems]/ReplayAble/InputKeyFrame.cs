@@ -8,7 +8,7 @@ namespace ReplayAble {
 		public bool Pressed;
 
 		public override void Replay() {
-			ReplayAbleInputSystem.Instance[AxisName].KeyPos = Pressed? InputAxis.KeyPosition.Down : InputAxis.KeyPosition.Up;
+			ReplayAbleInputSystem.Instance[AxisName].KeyPos = Pressed? KeyPosition.Down : KeyPosition.Up;
 			ReplayAbleInputSystem.Instance[AxisName].DoInput();
 		}
 
@@ -20,7 +20,7 @@ namespace ReplayAble {
 		public string AxisName;
 		public float Strength;
 		public override void Replay() {
-			ReplayAbleInputSystem.Instance[AxisName].KeyPos = InputAxis.KeyPosition.Held;
+			ReplayAbleInputSystem.Instance[AxisName].KeyPos = KeyPosition.Held;
 			ReplayAbleInputSystem.Instance[AxisName].Value = Strength;
 			ReplayAbleInputSystem.Instance[AxisName].DoInput();
 		}

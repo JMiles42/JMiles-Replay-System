@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ReplayAble {
 	[CustomEditor(typeof (ReplayAbleMaster))]
 	public class ReplayAbleMasterEditor: CustomEditorBase {
-		private const string EXTENSION = "txt";
+		private const string EXTENSION = "JMReplay";
 
 		public override void DrawGUI() {
 			if (JMilesGUILayoutEvents.Button("Save List")) {
